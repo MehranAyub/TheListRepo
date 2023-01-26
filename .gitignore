@@ -1,0 +1,20 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+[Dd]ebug
+[Dd]ebugPublic
+[Rr]elease
+[Rr]eleases
+x64
+x86
+bld
+[Bb]in
+bin
+obj
+dist
+[Oo]bj
+[Ll]og
+node_modules
+.vs
+*.csprojAssemblyReference.cache
