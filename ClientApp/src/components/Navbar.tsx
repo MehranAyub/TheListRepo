@@ -35,10 +35,7 @@ export default function Navbar(props: Props) {
   };
 
   const drawer = (
-    <Box
-      onClick={handleDrawerToggle}
-      sx={{ mt: 6, textAlign: "start", color: "white" }}
-    >
+    <Box onClick={handleDrawerToggle} sx={{ ml: 4, mt: 6, textAlign: "start" }}>
       <Divider />
       {/* <List sx={{ mt: 5 }}> */}
       {/* {navItems.map((item) => (
@@ -50,6 +47,7 @@ export default function Navbar(props: Props) {
         ))} */}
       <Button
         sx={{
+          color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
         }}
       >
@@ -58,6 +56,7 @@ export default function Navbar(props: Props) {
       <br />
       <Button
         sx={{
+          color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
         }}
       >
@@ -65,6 +64,7 @@ export default function Navbar(props: Props) {
       </Button>
       <Button
         sx={{
+          color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
         }}
       >
@@ -72,10 +72,27 @@ export default function Navbar(props: Props) {
       </Button>
       <Button
         sx={{
+          color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
         }}
       >
         ABOUT
+      </Button>
+      <Button
+        sx={{
+          mt: "20px",
+          backgroundColor: "none",
+          border: "1px solid #EC6B40",
+          borderRadius: "0px",
+          letterSpacing: "-0.025em",
+          fontSize: "10px",
+          width: "90%",
+          color: "#EC6B40",
+          fontFamily: "Lulo-Clean-One-Bold",
+        }}
+        size="large"
+      >
+        START A LIST
       </Button>
       {/* </List> */}
     </Box>

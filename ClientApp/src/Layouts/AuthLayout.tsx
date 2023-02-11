@@ -4,6 +4,7 @@ import path from "path";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "../components/Home";
+import MakeList from "../Pages/MakeList";
 import Navbar from "./../components/Navbar";
 import StartList from "./../Pages/StartList";
 
@@ -14,6 +15,7 @@ function AuthLayout() {
       <Routes>
         <Route path={"/"} element={<Home />}></Route>
         <Route path={"/StartList"} element={<StartList />}></Route>
+        <Route path={"/MakeList"} element={<MakeList />}></Route>
       </Routes>
     </Box>
   );

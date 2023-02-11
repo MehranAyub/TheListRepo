@@ -31,13 +31,25 @@ function Home() {
           <Grid item xs={0} md={3}></Grid>
         </Grid>
         <Box
-          mt={3}
           sx={{
             display: "flex",
             justifyContent: "center",
           }}
         >
-          <ArrowDownwardIcon sx={{ color: "#EC6B40" }} />
+          <ArrowDownwardIcon
+            sx={{
+              display: { xs: "block", md: "none" },
+              mt: "55%",
+              color: "#EC6B40",
+            }}
+          />
+          <ArrowDownwardIcon
+            sx={{
+              display: { xs: "none", md: "block" },
+              mt: "2%",
+              color: "#EC6B40",
+            }}
+          />
         </Box>
       </Box>
       <Box
