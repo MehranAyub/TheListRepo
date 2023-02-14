@@ -10,7 +10,7 @@ import StartList from "./../Pages/StartList";
 
 function AuthLayout() {
   return (
-    <Box sx={{ backgroundColor: "black" }}>
+    <Box sx={{ backgroundColor: "black", height: "auto" }}>
       <Navbar />
       <Routes>
         <Route path={"/"} element={<Home />}></Route>
