@@ -13,6 +13,6 @@ namespace Core.Data.Entities
         public string LName { get; set; }=string.Empty;
         public string Email { get; set; }=string.Empty;
         public string Password { get; set; }= string.Empty;
-        public List<List> Lists { get; set; } = new List<List>();   
+        public List<List>? Lists { get; set; } = new List<List>();   
     }
 }

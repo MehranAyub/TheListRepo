@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TheListWebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -16,10 +16,12 @@ namespace TheListWebApi.Controllers
             repository = repositorywrapper;
         }
 
-        [HttpGet(Name = "GetAllUsers")]
-        public IEnumerable<Product> GetAllUsers()
+        
+        [HttpGet(Name = "GetAllProducts")]
+        public IEnumerable<Product> GetAllProducts()
         {
-            return repository.Product.GetAllProducts();
+            var data= repository.Product.GetAllProducts();
+            return data;
         }
 
         [HttpGet("{id}", Name = "GetProductById")]

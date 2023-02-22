@@ -3,24 +3,108 @@ import {
   Button,
   Container,
   Grid,
-  TextField,
-  InputBase,
   Typography,
   Paper,
   List,
   Tab,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Stack,
+  DialogActions,
+  TextField,
+  Divider,
 } from "@mui/material";
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
+import ProductApi from "../services/Api/Product.Api";
+import { useQuery } from "react-query";
+import Logo from "../Assets/image.png";
+import PageLoader from "../components/PageLoader";
+import * as ModelSlice from "../models/ModelSlice";
+import MyLists from "./MyLists";
+import { useParams } from "react-router-dom";
 
-const MakeList: React.FunctionComponent = (props) => {
+const MakeList: React.FunctionComponent = () => {
+  let { occasion, title, date, note } = useParams();
+
+  console.log("Initial Data", occasion, title, note, date);
+  const { data, isLoading, isError, refetch } = useQuery(
+    "getAllProducts",
+    () => ProductApi.GetAllProducts(),
+    {
+      retry: 0,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const [products, setProducts] = React.useState<ModelSlice.Product[]>([]);
+  const [finalList, setFinalList] = React.useState<any>([]);
+  const [myList, setMyList] = React.useState<any[]>([]);
+  const [myLinks, setMyLinks] = React.useState<any[]>([]);
+  const [errorMessage, setErrorMessage] = React.useState(false);
+  const [link, setLink] = React.useState<any>({
+    link: "",
+    title: "",
+    quantity: 0,
+  });
   const [value, setValue] = React.useState("YOURITEMS");
+  const [openLinkDialog, setOpenLinkDialog] = React.useState(false);
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
+  const handleClose = () => {
+    setOpenLinkDialog(false);
+    setErrorMessage(false);
+  };
+  const handleSubmit = () => {
+    console.log("Links Value", link);
+    if (link.link !== "" && link.name !== "" && link.quantity > 0) {
+      handleClose();
+      return setMyLinks([...myLinks, { ...link }]);
+    }
+    setErrorMessage(true);
+  };
+  const handleSave = () => {
+    setFinalList({
+      title: title,
+      occasion: occasion,
+      date: date,
+      note: note,
+      listItems: myList,
+      linkItems: myLinks,
+      userId: "test",
+    });
+  };
+  React.useEffect(() => {
+    console.log("Final List", finalList);
+  }, [finalList]);
+
+  const handleLinkValue = (event: any) => {
+    setLink({ ...link, [event.target.name]: event.target.value });
+  };
+
+  React.useEffect(() => {
+    if (data) {
+      setProducts(data);
+    }
+  }, [data]);
+  React.useEffect(() => {
+    console.log("Link List", myLinks);
+  }, [myLinks]);
+
+  const addItem = (id: string) => {
+    setMyList([...myList, products.find((item: any) => item.id === id)]);
+    console.log("List", myList);
+  };
+
+  const fetchProducts = () => {
+    refetch();
+  };
   return (
     <Container component="div" maxWidth="lg">
+      <PageLoader isLoading={isLoading}></PageLoader>
       <Box
         pt={12}
         style={{
@@ -36,10 +120,10 @@ const MakeList: React.FunctionComponent = (props) => {
             component="h1"
             variant="h5"
           >
-            WEDDING LIST
+            {occasion}{" "}
           </Typography>
           <Typography mt={1} color="#EBE8D8" variant="body2">
-            5th March 2022
+            {date}{" "}
           </Typography>
         </Box>
         <Box mt={3}>
@@ -53,8 +137,8 @@ const MakeList: React.FunctionComponent = (props) => {
                 <Tab
                   sx={{
                     fontSize: "12px",
-                    backgroundColor: "none",
-                    color: "#EBE8D8",
+                    backgroundColor: value === "YOURITEMS" ? "none" : "#EBE8D8",
+                    color: value === "YOURITEMS" ? "#EBE8D8" : "black",
                     fontFamily: "Lulo-Clean-One-Bold",
                     textAlign: "center",
                     border: "2px solid #EBE8D8",
@@ -67,8 +151,8 @@ const MakeList: React.FunctionComponent = (props) => {
                 <Tab
                   sx={{
                     fontSize: "12px",
-                    backgroundColor: "#EBE8D8",
-                    color: "black",
+                    backgroundColor: value === "YOURITEMS" ? "#EBE8D8" : "none",
+                    color: value === "YOURITEMS" ? "black" : "#EBE8D8",
                     fontFamily: "Lulo-Clean-One-Bold",
                     textAlign: "center",
                     border: "2px solid #EBE8D8",
@@ -80,10 +164,109 @@ const MakeList: React.FunctionComponent = (props) => {
                 />
               </TabList>
             </Box>
-            <TabPanel value="YOURITEMS" style={{ padding: 0 }}>
-              <Box height="58vh">
-                <Paper sx={{ overflow: "auto" }}>
-                  <List></List>
+            <TabPanel value="YOURITEMS" sx={{ mt: 3, p: 0 }}>
+              <Box sx={{ ml: { xs: 0, md: 10 } }} height="58vh">
+                <Paper
+                  sx={{
+                    overflow: "auto",
+                    backgroundColor: "black",
+                  }}
+                >
+                  <List
+                    sx={{
+                      maxHeight: 400,
+                      backgroundColor: "black",
+                    }}
+                  >
+                    <>
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        textAlign="left"
+                        color="#EBE8D8"
+                        spacing={2}
+                        pl={2}
+                      >
+                        {myList.map((item: any, index: number) => (
+                          <Grid key={index} item xs={6} md={3}>
+                            <Box>
+                              <img
+                                style={{ width: "129px", maxHeight: "153px" }}
+                                alt=""
+                                src={Logo}
+                              ></img>
+                              <Typography
+                                sx={{
+                                  fontSize: "14px",
+                                }}
+                              >
+                                {item.title}
+                                <br />
+                                {item.description}
+                              </Typography>
+                              <Typography
+                                sx={{
+                                  fontSize: "14px",
+                                  color: "#EC6B40",
+                                }}
+                              >
+                                1 Piece
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        ))}
+                      </Grid>
+                      <Typography
+                        sx={{
+                          mt: 5,
+                          display: myLinks.length > 0 ? "block" : "none",
+                          fontSize: "16px",
+                          color: "#EC6B40",
+                          textAlign: "left",
+                          fontFamily: "Lulo-Clean-One-Bold",
+                        }}
+                      >
+                        Your Links
+                      </Typography>
+                      {myLinks.map((item: any, index: number) => (
+                        <React.Fragment key={index}>
+                          <Box
+                            sx={{
+                              mt: 2,
+                              display: "flex",
+                              direction: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                fontSize: "14px",
+                                color: "#EBE8D8",
+                              }}
+                            >
+                              {item.title}
+                            </Typography>
+
+                            <Typography
+                              sx={{
+                                fontSize: "14px",
+                                color: "#EC6B40",
+                              }}
+                            >
+                              {item.quantity + " "}Piece
+                            </Typography>
+                          </Box>
+                          <Divider
+                            sx={{
+                              border: "0.5px solid #EBE8D8",
+                            }}
+                          />
+                        </React.Fragment>
+                      ))}
+                    </>
+                  </List>
                 </Paper>
               </Box>
               <Box
@@ -95,13 +278,17 @@ const MakeList: React.FunctionComponent = (props) => {
                 mt={2}
               >
                 <Button
+                  disabled={myList.length <= 0 && myLinks.length <= 0}
                   sx={{
                     fontSize: "12px",
-                    color: "#7F7F7F",
+                    color: "#EC6B40",
                     fontFamily: "Lulo-Clean-One-Bold",
                     textAlign: "center",
                     borderRadius: 0,
                     width: "50%",
+                  }}
+                  onClick={() => {
+                    handleSave();
                   }}
                 >
                   SAVE
@@ -121,10 +308,72 @@ const MakeList: React.FunctionComponent = (props) => {
                 </Button>
               </Box>
             </TabPanel>
-            <TabPanel value="ADDITEMS" style={{ padding: 0 }}>
-              <Box height="58vh">
-                <Paper sx={{ overflow: "auto" }}>
-                  <List></List>
+            <TabPanel value="ADDITEMS" sx={{ mt: 3, p: 0 }}>
+              <Box sx={{ ml: { xs: 0, md: 10 } }} height="58vh">
+                <Paper
+                  sx={{
+                    overflow: "auto",
+                    backgroundColor: "black",
+                  }}
+                >
+                  <List
+                    sx={{
+                      maxHeight: 400,
+                      backgroundColor: "black",
+                    }}
+                  >
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="flex-start"
+                      textAlign="left"
+                      color="#EBE8D8"
+                      spacing={2}
+                      pl={2}
+                    >
+                      {products.map((item: any, index: number) => (
+                        <Grid key={index} item xs={6} md={3}>
+                          <Box>
+                            <img
+                              style={{ width: "129px", maxHeight: "153px" }}
+                              alt=""
+                              src={Logo}
+                            ></img>
+                            <Typography
+                              sx={{
+                                fontSize: "14px",
+                              }}
+                            >
+                              {item.title}
+                              <br />
+                              {item.price}
+                            </Typography>
+                            <Box
+                              width="129px"
+                              sx={{ backgroundColor: "#EBE8D8" }}
+                            >
+                              <Button
+                                sx={{
+                                  fontSize: "14px",
+                                  color: "black",
+                                  fontFamily: "Lulo-Clean-One-Bold",
+                                  textAlign: "center",
+                                  borderRadius: 0,
+                                  width: "100%",
+                                }}
+                                onClick={() => {
+                                  addItem(item.id);
+                                }}
+                              >
+                                ADD
+                              </Button>
+                            </Box>
+                          </Box>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </List>
                 </Paper>
               </Box>
               <Box
@@ -154,6 +403,9 @@ const MakeList: React.FunctionComponent = (props) => {
                     borderRadius: 0,
                     width: "100%",
                   }}
+                  onClick={() => {
+                    setOpenLinkDialog(true);
+                  }}
                 >
                   Paste your link{" "}
                 </Button>
@@ -162,6 +414,136 @@ const MakeList: React.FunctionComponent = (props) => {
           </TabContext>
         </Box>
       </Box>
+      <Dialog
+        maxWidth={"sm"}
+        open={openLinkDialog}
+        onClose={handleClose}
+        fullWidth
+        PaperProps={{
+          style: {
+            backgroundColor: "#EBE8D8",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            textAlign: "left",
+            fontFamily: "Lulo-Clean-One-Bold",
+            fontSize: "16px",
+            lineHeight: "19.2px",
+          }}
+        >
+          ADD a Link of any product from any website.
+        </DialogTitle>
+        <DialogContent>
+          <p style={{ color: "red", display: errorMessage ? "block" : "none" }}>
+            Please fill all fields*
+          </p>
+          <TextField
+            fullWidth
+            sx={{
+              "& .MuiInputLabel-root": { color: "black" }, //styles the label
+              "& .MuiOutlinedInput-root": {
+                "& > fieldset": { borderColor: "black", borderRadius: 0 },
+              },
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": {
+                  borderColor: "black",
+                },
+              },
+              mt: 3,
+            }}
+            name="link"
+            onChange={handleLinkValue}
+            value={link.link}
+            label="Item Link"
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            sx={{
+              "& .MuiInputLabel-root": { color: "black" }, //styles the label
+              "& .MuiOutlinedInput-root": {
+                "& > fieldset": { borderColor: "black", borderRadius: 0 },
+              },
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": {
+                  borderColor: "black",
+                },
+              },
+              mt: 3,
+            }}
+            name="title"
+            onChange={handleLinkValue}
+            value={link.name}
+            label="Name"
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            sx={{
+              "& .MuiInputLabel-root": { color: "black" }, //styles the label
+              "& .MuiOutlinedInput-root": {
+                "& > fieldset": { borderColor: "black", borderRadius: 0 },
+              },
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": {
+                  borderColor: "black",
+                },
+              },
+              mt: 3,
+            }}
+            type="number"
+            name="quantity"
+            onChange={handleLinkValue}
+            value={link.quantity}
+            label="Quantity"
+            variant="outlined"
+          />
+          <Box
+            mt={3}
+            sx={{
+              display: "flex",
+              direction: "row",
+              backgroundColor: "#EBE8D8",
+              justifyContent: "space-between",
+            }}
+          >
+            {" "}
+            <Button
+              sx={{
+                width: "48%",
+                color: "#EC6B40",
+                backgroundColor: "none",
+                border: "2px solid #EC6B40",
+                borderRadius: 0,
+                fontSize: "14px",
+                fontFamily: "Lulo-Clean-One-Bold",
+              }}
+              autoFocus
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              sx={{
+                borderRadius: 0,
+                width: "48%",
+                color: "white",
+                "&:hover": {
+                  backgroundColor: "#EC6B40",
+                },
+                backgroundColor: "#EC6B40",
+                fontSize: "14px",
+                fontFamily: "Lulo-Clean-One-Bold",
+              }}
+              onClick={handleSubmit}
+            >
+              ADD
+            </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Container>
   );
 };

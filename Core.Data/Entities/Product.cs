@@ -10,7 +10,7 @@ namespace Core.Data.Entities
     {
         public Guid Id { get; set; }
         public string Title { get; set; }=String.Empty;
-        public string Description { get; set; }=String.Empty;
+        public string Price { get; set; }=String.Empty;
         public string? StoreLink { get; set; }
         public string? Image { get; set; }
         public Guid CategoryId { get; set; }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TheListWebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class ListController : ControllerBase
     {
@@ -22,31 +22,31 @@ namespace TheListWebApi.Controllers
             return repository.List.GetAllLists();
         }
 
-        [HttpGet("{id}", Name = "GetProductById")]
+        [HttpGet("{id}", Name = "GetListById")]
         public Task<Product> GetProductById(Guid id)
         {
             return repository.Product.GetProductById(id);
         }
 
         // POST api/<UsersController>
-        [HttpPost("CreateProduct")]
-        public PayloadCustom<Product> CreateProduct([FromBody] Product product)
+        [HttpPost("CreateList")]
+        public PayloadCustom<List> CreateList([FromBody] List list)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    repository.Product.CreateProduct(product);
+                    repository.List.CreateList(list);
                     repository.Save();
-                    return new PayloadCustom<Product>() { Entity = product, Status = 0 };
+                    return new PayloadCustom<List>() { Entity = list, Status = 0 };
                 }
 
-                return new PayloadCustom<Product>() { Entity = null, Status = 9 };
+                return new PayloadCustom<List>() { Entity = null, Status = 9 };
 
             }
             catch
             {
-                return new PayloadCustom<Product>() { Entity = null, Status = 500 };
+                return new PayloadCustom<List>() { Entity = null, Status = 500 };
 
             }
 

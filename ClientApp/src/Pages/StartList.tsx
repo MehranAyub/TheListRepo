@@ -6,10 +6,45 @@ import {
   TextField,
   InputBase,
   Typography,
+  TextareaAutosize,
 } from "@mui/material";
 import React from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import dayjs, { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import MakeList from "./MakeList";
+
 const StartList: React.FunctionComponent = () => {
+  let navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = React.useState(false);
+  const [year, setYear] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
+  const [date, setDate] = React.useState<any>();
+  const [listData, setListData] = React.useState<any>({
+    occasion: "",
+    title: "",
+    note: "",
+  });
+
+  const handleListData = (event: any) => {
+    setListData({ ...listData, [event.target.name]: event.target.value });
+  };
+  const handleContinue = () => {
+    console.log("List Data", listData);
+    if (
+      listData.occasion !== "" &&
+      listData.title !== "" &&
+      listData.date !== ""
+    ) {
+      setErrorMessage(false);
+      navigate(
+        `/MakeList/${listData.occasion}/${listData.title}/${date}/${listData.note}`
+      );
+    }
+    setErrorMessage(true);
+  };
   return (
     <Container component="div" maxWidth="xs" style={{ height: "100vh" }}>
       <Grid
@@ -22,7 +57,7 @@ const StartList: React.FunctionComponent = () => {
           textAlign: "center",
         }}
       >
-        <Grid item>
+        <Grid item maxWidth="xs">
           <Box component="div" mt={2}>
             <Typography
               fontSize="28px"
@@ -47,8 +82,12 @@ const StartList: React.FunctionComponent = () => {
                   borderColor: "#EBE8D8",
                 },
               },
+              input: { color: "#EBE8D8" },
               mt: "20px",
             }}
+            name="occasion"
+            onChange={handleListData}
+            value={listData.occasion}
             label="What's the occasion?"
             variant="outlined"
           />
@@ -64,12 +103,61 @@ const StartList: React.FunctionComponent = () => {
                   borderColor: "#EBE8D8",
                 },
               },
+              input: { color: "#EBE8D8" },
               mt: "20px",
             }}
+            name="title"
+            onChange={handleListData}
+            value={listData.title}
             label="Name Your List"
             variant="outlined"
           />
-          <TextField
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              views={["year", "month", "day"]}
+              label=" Date of occasion?"
+              value={year}
+              onChange={(newValue) => {
+                console.log(newValue?.toString());
+                var date = new Date(newValue?.toString() ?? "");
+
+                setDate(
+                  date.toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "long",
+                    day: "2-digit",
+                  })
+                );
+
+                setYear(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  helperText={null}
+                  fullWidth
+                  sx={{
+                    "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
+                    "& .MuiOutlinedInput-root": {
+                      "& > fieldset": { borderColor: "#EBE8D8" },
+                    },
+                    "& .MuiOutlinedInput-root:hover": {
+                      "& > fieldset": {
+                        borderColor: "#EBE8D8",
+                      },
+                    },
+                    input: { color: "#EBE8D8" },
+                    mt: "20px",
+                  }}
+                  name="date"
+                  variant="outlined"
+                />
+              )}
+            />
+          </LocalizationProvider>
+
+          {/* <TextField
             fullWidth
             sx={{
               "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
@@ -81,12 +169,32 @@ const StartList: React.FunctionComponent = () => {
                   borderColor: "#EBE8D8",
                 },
               },
+              input: { color: "#EBE8D8" },
               mt: "20px",
             }}
+            name="date"
+            onChange={handleListData}
+            value={listData.date}
             label="Date of occasion?"
             variant="outlined"
-          />
+          /> */}
 
+          <TextareaAutosize
+            aria-label="minimum height"
+            minRows={6}
+            placeholder="Add a note, e.g: size, fit etc.."
+            style={{
+              maxWidth: "sm",
+              width: "100%",
+              marginTop: "20px",
+              borderColor: "#EBE8D8",
+              background: "none",
+              color: "#EBE8D8",
+            }}
+            name="note"
+            onChange={handleListData}
+            value={listData.note}
+          />
           <Box mt={2} sx={{ display: "flex", justifyContent: "right" }}>
             <Button
               sx={{
@@ -94,11 +202,17 @@ const StartList: React.FunctionComponent = () => {
                 fontSize: "16px",
                 fontFamily: "Lulo-Clean-One-Bold",
               }}
+              onClick={() => {
+                handleContinue();
+              }}
             >
               Continue <ArrowForwardIcon />
             </Button>
           </Box>
         </Grid>
+        <p style={{ color: "red", display: errorMessage ? "block" : "none" }}>
+          Please fill all fields*
+        </p>
       </Grid>
     </Container>
   );

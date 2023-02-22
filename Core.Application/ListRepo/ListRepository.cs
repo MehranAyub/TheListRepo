@@ -16,7 +16,7 @@ namespace Core.Application.ListRepo
         {
         }
 
-        public List<List> GetAllLists()
+        public IEnumerable<List> GetAllLists()
         {
             return GetAll().ToList();
         }
