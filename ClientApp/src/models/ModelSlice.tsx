@@ -4,7 +4,6 @@ export interface User {
   lName: string;
   email: string;
   password: string;
-  lists: List[] | null;
 }
 
 export interface List {
@@ -16,17 +15,15 @@ export interface List {
   listItems: ListItems[] | null;
   linkItems: LinkItems[] | null;
   userId: string;
-  user: User | null;
 }
 
 export interface ListItems {
   id: string;
   title: string | null;
   quantity: number | null;
-  productId: string;
-  product: Product | null;
-  listId: string;
-  list: List | null;
+  price: string;
+  storeLink: string | null;
+  image: string | null;
 }
 
 export interface LinkItems {
@@ -34,8 +31,6 @@ export interface LinkItems {
   title: string | null;
   link: string | null;
   quantity: number | null;
-  listId: string | null;
-  list: List | null;
 }
 
 export interface Category {
@@ -50,5 +45,4 @@ export interface Product {
   storeLink: string | null;
   image: string | null;
   categoryId: string;
-  category: Category | null;
 }

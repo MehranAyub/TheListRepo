@@ -17,9 +17,14 @@ namespace Core.Application.ProductRepo
         {
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts(string? search)
         {
-            return GetAll().ToList();
+            if (search == null)
+            {
+              return  RepositoryContext.Product.Take(20).ToList();
+            }
+          return  RepositoryContext.Product.Take(20).Where(n => n.Title.ToLower().Contains(search.ToLower())).ToList();
+          
         }
 
         public async Task<Product> GetProductById(Guid id)
@@ -30,5 +35,6 @@ namespace Core.Application.ProductRepo
         {
            Create(product);
         }
+       
     }
 }

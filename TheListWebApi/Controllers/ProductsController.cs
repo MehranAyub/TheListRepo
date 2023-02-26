@@ -18,9 +18,9 @@ namespace TheListWebApi.Controllers
 
         
         [HttpGet(Name = "GetAllProducts")]
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts(string? search)
         {
-            var data= repository.Product.GetAllProducts();
+            var data= repository.Product.GetAllProducts(search);
             return data;
         }
 
@@ -53,6 +53,30 @@ namespace TheListWebApi.Controllers
             }
 
         }
+
+        [HttpPost("CreateCategory")]
+        public PayloadCustom<Category> CreateCategory([FromBody] Category category)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    repository.Category.CreateCategory(category);
+                    repository.Save();
+                    return new PayloadCustom<Category>() { Entity = category, Status = 0 };
+                }
+
+                return new PayloadCustom<Category>() { Entity = null, Status = 9 };
+
+            }
+            catch
+            {
+                return new PayloadCustom<Category>() { Entity = null, Status = 500 };
+
+            }
+
+        }
+
 
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)

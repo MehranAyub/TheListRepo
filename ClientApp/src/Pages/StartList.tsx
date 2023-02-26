@@ -75,7 +75,7 @@ const StartList: React.FunctionComponent = () => {
             sx={{
               "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
               "& .MuiOutlinedInput-root": {
-                "& > fieldset": { borderColor: "#EBE8D8" },
+                "& > fieldset": { borderColor: "#EBE8D8", borderRadius: "0px" },
               },
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": {
@@ -96,7 +96,7 @@ const StartList: React.FunctionComponent = () => {
             sx={{
               "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
               "& .MuiOutlinedInput-root": {
-                "& > fieldset": { borderColor: "#EBE8D8" },
+                "& > fieldset": { borderColor: "#EBE8D8", borderRadius: "0px" },
               },
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": {
@@ -140,7 +140,10 @@ const StartList: React.FunctionComponent = () => {
                   sx={{
                     "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
                     "& .MuiOutlinedInput-root": {
-                      "& > fieldset": { borderColor: "#EBE8D8" },
+                      "& > fieldset": {
+                        borderColor: "#EBE8D8",
+                        borderRadius: "0px",
+                      },
                     },
                     "& .MuiOutlinedInput-root:hover": {
                       "& > fieldset": {
@@ -190,6 +193,7 @@ const StartList: React.FunctionComponent = () => {
               borderColor: "#EBE8D8",
               background: "none",
               color: "#EBE8D8",
+              borderRadius: "0px",
             }}
             name="note"
             onChange={handleListData}

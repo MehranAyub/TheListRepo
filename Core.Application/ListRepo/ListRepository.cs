@@ -16,9 +16,10 @@ namespace Core.Application.ListRepo
         {
         }
 
-        public IEnumerable<List> GetAllLists()
+        public IEnumerable<List> GetMyLists(Guid userId)
         {
-            return GetAll().ToList();
+            return RepositoryContext.List.Where(n=>n.UserId==userId).ToList();
+            
         }
 
         public List GetListById(Guid id)

@@ -16,10 +16,10 @@ namespace TheListWebApi.Controllers
             repository = repositorywrapper;
         }
 
-        [HttpGet(Name = "GetAllLists")]
-        public IEnumerable<List> GetAllLists()
+        [HttpGet(Name = "GetMyLists")]
+        public IEnumerable<List> GetMyLists(Guid userId)
         {
-            return repository.List.GetAllLists();
+            return repository.List.GetMyLists(userId);
         }
 
         [HttpGet("{id}", Name = "GetListById")]
@@ -29,7 +29,7 @@ namespace TheListWebApi.Controllers
         }
 
         // POST api/<UsersController>
-        [HttpPost("CreateList")]
+        [HttpPost]
         public PayloadCustom<List> CreateList([FromBody] List list)
         {
             try

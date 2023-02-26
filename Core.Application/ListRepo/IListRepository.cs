@@ -9,7 +9,7 @@ namespace Core.Application.ListRepo
 {
     public interface IListRepository
     {
-        IEnumerable<List> GetAllLists();
+        IEnumerable<List> GetMyLists(Guid userId);
         List GetListById(Guid id);
         void CreateList(List list);
     }

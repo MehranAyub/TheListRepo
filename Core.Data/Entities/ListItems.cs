@@ -10,9 +10,11 @@ namespace Core.Data.Entities
     {
         public Guid Id { get; set; }
         public string? Title { get; set; } = String.Empty;
-        public int? Quantity { get; set; }
-        public Guid ProductId { get; set; }
-        public Product? Product { get; set; }
+        public int Quantity { get; set; } = 1;
+        public string Price { get; set; } = String.Empty;
+        public string? StoreLink { get; set; }
+        public string? Image { get; set; }
+        public bool IsBought { get; set; }    
         public Guid ListId { get; set; }
         public List? List { get; set; }
 

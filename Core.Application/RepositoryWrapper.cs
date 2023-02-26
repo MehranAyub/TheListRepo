@@ -1,4 +1,5 @@
-﻿using Core.Application.ListRepo;
+﻿using Core.Application.CategoryRepo;
+using Core.Application.ListRepo;
 using Core.Application.ProductRepo;
 using Core.Application.UserRepo;
 using Core.Data;
@@ -15,7 +16,9 @@ namespace Core.Application
       private  RepositoryContext _repositoryContext;
       private  IUserRepository _userRepository;
       private IListRepository _listRepository;
-        private IProductRepositorty _productRepository;
+      private IProductRepositorty _productRepository;
+      private ICategoryRepository _categoryRepository;
+
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -49,6 +52,17 @@ namespace Core.Application
                     _productRepository=new ProductRepository(_repositoryContext);
                 }
                 return _productRepository;
+            }
+        }
+        public ICategoryRepository Category
+        {
+            get
+            {
+                if (_categoryRepository == null)
+                {
+                    _categoryRepository = new CategoryRepository(_repositoryContext);
+                }
+                return _categoryRepository;
             }
         }
         public void Save()

@@ -9,7 +9,7 @@ namespace Core.Application.ProductRepo
 {
     public interface IProductRepositorty
     {
-        IEnumerable<Product> GetAllProducts();
+        IEnumerable<Product> GetAllProducts(string search);
         Task<Product> GetProductById(Guid id);
         void CreateProduct(Product product);
     }
