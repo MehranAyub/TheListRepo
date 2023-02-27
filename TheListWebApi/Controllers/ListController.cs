@@ -36,7 +36,15 @@ namespace TheListWebApi.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    repository.List.CreateList(list);
+                    if (list.Id == Guid.Empty)
+                    {
+                        repository.List.CreateList(list);
+
+                    }
+                    else
+                    {
+                        repository.List.UpdateList(list);
+                    }
                     repository.Save();
                     return new PayloadCustom<List>() { Entity = list, Status = 0 };
                 }

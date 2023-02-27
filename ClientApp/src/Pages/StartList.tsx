@@ -7,6 +7,7 @@ import {
   InputBase,
   Typography,
   TextareaAutosize,
+  InputAdornment,
 } from "@mui/material";
 import React from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -15,7 +16,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import MakeList from "./MakeList";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 const StartList: React.FunctionComponent = () => {
   let navigate = useNavigate();
@@ -117,6 +118,7 @@ const StartList: React.FunctionComponent = () => {
             <DatePicker
               views={["year", "month", "day"]}
               label=" Date of occasion?"
+              showToolbar={true}
               value={year}
               onChange={(newValue) => {
                 console.log(newValue?.toString());
@@ -129,13 +131,11 @@ const StartList: React.FunctionComponent = () => {
                     day: "2-digit",
                   })
                 );
-
                 setYear(newValue);
               }}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  helperText={null}
                   fullWidth
                   sx={{
                     "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
@@ -152,6 +152,13 @@ const StartList: React.FunctionComponent = () => {
                     },
                     input: { color: "#EBE8D8" },
                     mt: "20px",
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <CalendarMonthIcon sx={{ color: "#EBE8D8" }} />
+                      </InputAdornment>
+                    ),
                   }}
                   name="date"
                   variant="outlined"

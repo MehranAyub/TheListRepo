@@ -11,6 +11,8 @@ namespace Core.Application.ListRepo
     {
         IEnumerable<List> GetMyLists(Guid userId);
         List GetListById(Guid id);
+
+        List UpdateList(List list);
         void CreateList(List list);
     }
 }

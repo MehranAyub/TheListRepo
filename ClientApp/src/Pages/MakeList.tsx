@@ -43,9 +43,9 @@ const MakeList: React.FunctionComponent = () => {
     onError: () => console.log("Could not add List"),
   });
   const [products, setProducts] = React.useState<ModelSlice.Product[]>([]);
-  const [finalList, setFinalList] = React.useState<any>([]);
   const [myList, setMyList] = React.useState<any[]>([]);
-  const [myLinks, setMyLinks] = React.useState<any[]>([]);
+  const [myLinks, setMyLinks] = React.useState<ModelSlice.List[]>([]);
+  const [savedList, setSavedList] = React.useState<any>([]);
   const [errorMessage, setErrorMessage] = React.useState(false);
   const [search, setSearch] = React.useState<string>("");
 
@@ -78,6 +78,7 @@ const MakeList: React.FunctionComponent = () => {
   const handleSave = () => {
     let list = {} as any;
     list = {
+      id: savedList !== null ? savedList.id : null,
       title: title,
       occasion: occasion,
       date: date,
@@ -86,11 +87,9 @@ const MakeList: React.FunctionComponent = () => {
       linkItems: myLinks,
       userId: "96009406-3FC0-4D94-FB49-08DAFAEB2E18",
     };
+
     mutate(list);
   };
-  React.useEffect(() => {
-    console.log("Final List", finalList);
-  }, [finalList]);
 
   const handleLinkValue = (event: any) => {
     setLink({ ...link, [event.target.name]: event.target.value });
@@ -110,13 +109,18 @@ const MakeList: React.FunctionComponent = () => {
 
   React.useEffect(() => {
     if (mutationData) {
+      if (mutationData.status === 0) {
+        setSavedList(mutationData.entity);
+        setMyLinks(mutationData.entity.linkItems);
+        setMyList(mutationData.entity.listItems);
+      }
       console.log("Returned Data after saving list", mutationData);
     }
   }, [mutationData]);
 
   React.useEffect(() => {
-    console.log("Link List", myLinks);
-  }, [myLinks]);
+    console.log("List Items", myList, "Link Itrems", myLinks);
+  }, [myList]);
 
   const addItem = (item: any) => {
     setMyList([
@@ -350,7 +354,11 @@ const MakeList: React.FunctionComponent = () => {
                     md={4}
                   >
                     <Button
-                      disabled={myList.length <= 0 && myLinks.length <= 0}
+                      disabled={
+                        (myList.length <= 0 && myLinks.length <= 0) ||
+                        (myList.every((item) => item.id) &&
+                          myLinks.every((item) => item.id))
+                      }
                       sx={{
                         fontSize: "12px",
                         color: "#EC6B40",
