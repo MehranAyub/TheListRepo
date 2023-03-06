@@ -11,6 +11,8 @@ namespace Core.Application.UserRepo
     {
         IEnumerable<User> GetAllUsers();
         Task<User> GetUserById(Guid id);
+        User ValidateUser(string email,string password);
+
         void CreateUser(User user);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Core.Data;
 using Core.Data.BaseRepository;
+using Core.Data.Dtos;
 using Core.Data.Entities;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,8 @@ namespace Core.Application.ListRepo
 
         public List GetListById(Guid id)
         {
-            return FindByCondition(List => List.Id.Equals(id)).FirstOrDefault();
+            return RepositoryContext.List.Where(n => n.Id == id).Include(n => n.ListItems).Include(n => n.LinkItems).AsNoTracking().FirstOrDefault();
+
         }
         public List UpdateList(List list)
         {
@@ -35,7 +37,16 @@ namespace Core.Application.ListRepo
              RepositoryContext.Update(result);
             return result;
         }
+        public List BuyItems(BuyItemsDto dto)
+        {
 
+            var result = RepositoryContext.List.Where(n => n.Id == dto.ListId).Include(n => n.ListItems.Where(l => dto.ItemIds.Contains(l.Id))).Include(n => n.LinkItems.Where(l=>dto.LinkIds.Contains(l.Id))).AsNoTracking().FirstOrDefault();
+
+            result.ListItems.ForEach(n => n.IsBought = true);
+            result.LinkItems.ForEach(n=>n.IsBought= true);
+            RepositoryContext.Update(result);
+            return result;
+        }
         public void CreateList(List list)
         {
           Create(list);

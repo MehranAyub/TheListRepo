@@ -28,6 +28,10 @@ namespace Core.Application.UserRepo
         {
             return await FindByCondition(User => User.Id.Equals(Id)).FirstOrDefaultAsync();
         }
+        public User ValidateUser(string email, string password)
+        {
+            return RepositoryContext.User.Where(n => n.Email == email && n.Password == n.Password).FirstOrDefault();
+        }
         public void CreateUser(User user)
         {          
                 Create(user);

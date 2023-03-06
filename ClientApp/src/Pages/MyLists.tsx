@@ -10,13 +10,22 @@ import {
   List,
 } from "@mui/material";
 import React from "react";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import ListApi from "./../services/Api/List.Api";
 const MyLists: React.FunctionComponent = () => {
+  let navigate = useNavigate();
+  var user = null as any;
+  user = localStorage.getItem("token");
+  var userData = JSON.parse(user);
+  React.useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
   const { data, isLoading, isError, refetch } = useQuery(
     "getMyLists",
-    () => ListApi.MyLists("96009406-3FC0-4D94-FB49-08DAFAEB2E18"),
+    () => ListApi.MyLists(userData.id ?? ""),
     {
       refetchOnWindowFocus: false,
       //enabled: false,
@@ -30,6 +39,9 @@ const MyLists: React.FunctionComponent = () => {
       console.log("Returned data ", data);
     }
   }, [data]);
+  const getList = (id: string) => {
+    navigate(`/AList/${id}`);
+  };
   return (
     <Container component="div" maxWidth="xs" style={{ height: "100vh" }}>
       <Box
@@ -68,6 +80,7 @@ const MyLists: React.FunctionComponent = () => {
                   fontFamily="Lulo-Clean-One-Bold"
                   color="#EBE8D8"
                   mb={5.5}
+                  onClick={() => getList(item.id)}
                 >
                   {item.title}
                 </Typography>

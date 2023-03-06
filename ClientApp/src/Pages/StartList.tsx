@@ -4,14 +4,13 @@ import {
   Container,
   Grid,
   TextField,
-  InputBase,
   Typography,
   TextareaAutosize,
   InputAdornment,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -19,6 +18,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 const StartList: React.FunctionComponent = () => {
+  var user = null as any;
+  user = localStorage.getItem("token");
   let navigate = useNavigate();
   const [errorMessage, setErrorMessage] = React.useState(false);
   const [year, setYear] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
@@ -28,6 +29,12 @@ const StartList: React.FunctionComponent = () => {
     title: "",
     note: "",
   });
+
+  React.useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
 
   const handleListData = (event: any) => {
     setListData({ ...listData, [event.target.name]: event.target.value });
@@ -121,7 +128,6 @@ const StartList: React.FunctionComponent = () => {
               showToolbar={true}
               value={year}
               onChange={(newValue) => {
-                console.log(newValue?.toString());
                 var date = new Date(newValue?.toString() ?? "");
 
                 setDate(

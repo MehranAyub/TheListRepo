@@ -4,7 +4,10 @@ import Logo from "../Assets/Logo.png";
 import Navbar from "./Navbar";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import "../App.css";
+import { useNavigate } from "react-router-dom";
 function Home() {
+  var navigate = useNavigate();
+
   return (
     <Box>
       <Box
@@ -99,6 +102,9 @@ function Home() {
               fontFamily: "Lulo-Clean-One-Bold",
             }}
             size="large"
+            onClick={() => {
+              navigate("/StartList");
+            }}
           >
             START A LIST
           </Button>
@@ -289,6 +295,9 @@ function Home() {
             width: "270px",
             color: "WHITE",
             fontFamily: "Lulo-Clean-One-Bold",
+          }}
+          onClick={() => {
+            navigate("/StartList");
           }}
           size="large"
         >

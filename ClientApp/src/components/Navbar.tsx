@@ -5,50 +5,48 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Logo from "../Assets/Logo.png";
+import Insta from "../Assets/insta.png";
+import linkedIn from "../Assets/linkedin.png";
+import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
+// interface Props {
+//   /**
+//    * Injected by the documentation to work in an iframe.
+//    * You won't need it on your project.
+//    */
+//   window?: () => Window;
+// }
 
-const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+const drawerWidth = 300;
 
-export default function Navbar(props: Props) {
-  const { window } = props;
+export default function Navbar() {
+  let navigate = useNavigate();
+  // const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
+  const NavTo = (link: any) => {
+    navigate(link);
+  };
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ ml: 4, mt: 6, textAlign: "start" }}>
       <Divider />
-      {/* <List sx={{ mt: 5 }}> */}
-      {/* {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))} */}
+
       <Button
         sx={{
+          fontSize: "20px",
           color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
+        }}
+        onClick={() => {
+          NavTo("/Home");
         }}
       >
         HOME
@@ -56,14 +54,19 @@ export default function Navbar(props: Props) {
       <br />
       <Button
         sx={{
+          fontSize: "20px",
           color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
+        }}
+        onClick={() => {
+          NavTo("/MyLists");
         }}
       >
         MY LISTS
       </Button>
       <Button
         sx={{
+          fontSize: "20px",
           color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
         }}
@@ -72,6 +75,7 @@ export default function Navbar(props: Props) {
       </Button>
       <Button
         sx={{
+          fontSize: "20px",
           color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
         }}
@@ -85,21 +89,60 @@ export default function Navbar(props: Props) {
           border: "1px solid #EC6B40",
           borderRadius: "0px",
           letterSpacing: "-0.025em",
-          fontSize: "10px",
+          fontSize: "14px",
           width: "90%",
           color: "#EC6B40",
           fontFamily: "Lulo-Clean-One-Bold",
+        }}
+        onClick={() => {
+          NavTo("/StartList");
         }}
         size="large"
       >
         START A LIST
       </Button>
-      {/* </List> */}
+      <Box sx={{ position: "absolute", bottom: 30 }}>
+        <Box
+          mt={3}
+          sx={{
+            display: "flex",
+            direction: "row",
+            justifyContent: "flex-start",
+          }}
+        >
+          <IconButton>
+            <img src={Insta} />
+          </IconButton>
+          <IconButton>
+            <img src={linkedIn} />
+          </IconButton>
+        </Box>
+        <Typography sx={{ fontSize: "14px", color: "#EBE8D8", mt: 2 }}>
+          Privacy Policy
+        </Typography>
+        <Typography sx={{ fontSize: "14px", color: "#EBE8D8", mt: 1 }}>
+          contact@alistforall.com{" "}
+        </Typography>
+        <Button
+          sx={{
+            mt: 4,
+            fontSize: "20px",
+            color: "white",
+            fontFamily: "Lulo-Clean-One-Bold",
+          }}
+          onClick={() => {
+            localStorage.clear();
+            window.location.href = "/";
+          }}
+        >
+          LOG OUT
+        </Button>
+      </Box>
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  // const container =
+  //   window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -139,6 +182,9 @@ export default function Navbar(props: Props) {
                   letterSpacing: "-0.205em",
                   fontFamily: "Lulo-Clean-One-Bold",
                 }}
+                onClick={() => {
+                  NavTo("/");
+                }}
               >
                 HOME
               </Button>
@@ -147,6 +193,9 @@ export default function Navbar(props: Props) {
                   color: "black",
                   letterSpacing: "-0.205em",
                   fontFamily: "Lulo-Clean-One-Bold",
+                }}
+                onClick={() => {
+                  NavTo("/MyLists");
                 }}
               >
                 MY LISTS
@@ -157,6 +206,9 @@ export default function Navbar(props: Props) {
                   letterSpacing: "-0.205em",
                   fontFamily: "Lulo-Clean-One-Bold",
                 }}
+                onClick={() => {
+                  NavTo("/");
+                }}
               >
                 INSPIRATION
               </Button>
@@ -166,8 +218,24 @@ export default function Navbar(props: Props) {
                   letterSpacing: "-0.205em",
                   fontFamily: "Lulo-Clean-One-Bold",
                 }}
+                onClick={() => {
+                  NavTo("/");
+                }}
               >
                 ABOUT
+              </Button>
+              <Button
+                sx={{
+                  color: "#EC6B40",
+                  letterSpacing: "-0.205em",
+                  fontFamily: "Lulo-Clean-One-Bold",
+                }}
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.href = "/";
+                }}
+              >
+                LOG OUT
               </Button>
             </Box>
           </Box>
@@ -175,12 +243,11 @@ export default function Navbar(props: Props) {
       </AppBar>
       <Box component="nav">
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

@@ -20,8 +20,8 @@ export interface List {
 export interface ListItems {
   id: string;
   title: string | null;
-  quantity: number | null;
   price: string;
+  isBought: boolean;
   storeLink: string | null;
   image: string | null;
 }
@@ -30,7 +30,7 @@ export interface LinkItems {
   id: string;
   title: string | null;
   link: string | null;
-  quantity: number | null;
+  isBought: boolean;
 }
 
 export interface Category {

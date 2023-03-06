@@ -25,15 +25,21 @@ import * as ModelSlice from "../models/ModelSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import WALogo from "../Assets/whatsapp.png";
 
-const MakeList: React.FunctionComponent = () => {
-  let navigate = useNavigate();
-  let { occasion, title, date, note } = useParams();
+const AList: React.FunctionComponent = () => {
+  var navigate = useNavigate();
+  let { id } = useParams();
   var user = null as any;
   user = localStorage.getItem("token");
   var userData = JSON.parse(user);
-  console.log("Local storage data", userData.id);
-
-  console.log("Initial Data", occasion, title, note, date);
+  const {
+    data: AList,
+    isLoading: Loading,
+    isError: Error,
+    refetch: RefetchList,
+  } = useQuery("getAList", () => ListApi.GetAList(id), {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
   const { data, isLoading, isError, refetch } = useQuery(
     "getAllProducts",
     () => ProductApi.GetAllProducts(search),
@@ -52,7 +58,7 @@ const MakeList: React.FunctionComponent = () => {
   });
   const [products, setProducts] = React.useState<ModelSlice.Product[]>([]);
   const [myList, setMyList] = React.useState<any[]>([]);
-  const [myLinks, setMyLinks] = React.useState<any[]>([]);
+  const [myLinks, setMyLinks] = React.useState<ModelSlice.List[]>([]);
   const [savedList, setSavedList] = React.useState<any>([]);
   const [errorMessage, setErrorMessage] = React.useState(false);
   const [search, setSearch] = React.useState<string>("");
@@ -73,7 +79,6 @@ const MakeList: React.FunctionComponent = () => {
       navigate("/login");
     }
   }, []);
-
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -98,10 +103,6 @@ const MakeList: React.FunctionComponent = () => {
     let list = {} as any;
     list = {
       id: savedList !== null ? savedList.id : null,
-      title: title,
-      occasion: occasion,
-      date: date,
-      note: note,
       listItems: myList,
       linkItems: myLinks,
       userId: userData.id ?? "",
@@ -116,7 +117,6 @@ const MakeList: React.FunctionComponent = () => {
     )}`;
     window.open(whatsappUrl, "_blank");
   };
-
   const handleProductLink = (link: string) => {
     window.open(link, "_blank");
   };
@@ -133,6 +133,12 @@ const MakeList: React.FunctionComponent = () => {
     }
   }, [data]);
   React.useEffect(() => {
+    if (Error) {
+      navigate("/login");
+    }
+  }, [Error]);
+
+  React.useEffect(() => {
     const timeOutId = setTimeout(() => refetch(), 1000);
     return () => clearTimeout(timeOutId);
   }, [search]);
@@ -147,6 +153,17 @@ const MakeList: React.FunctionComponent = () => {
       console.log("Returned Data after saving list", mutationData);
     }
   }, [mutationData]);
+
+  React.useEffect(() => {
+    if (AList) {
+      if (AList.status === 0) {
+        setSavedList(AList.entity);
+        setMyLinks(AList.entity.linkItems);
+        setMyList(AList.entity.listItems);
+      }
+      console.log("Returned Data of List", AList);
+    }
+  }, [AList]);
 
   React.useEffect(() => {
     console.log("List Items", myList, "Link Itrems", myLinks);
@@ -168,7 +185,7 @@ const MakeList: React.FunctionComponent = () => {
   return (
     <>
       <Container component="div" maxWidth="lg">
-        <PageLoader isLoading={isLoading || adding}></PageLoader>
+        <PageLoader isLoading={isLoading}></PageLoader>
         <Box
           pt={12}
           style={{
@@ -184,10 +201,10 @@ const MakeList: React.FunctionComponent = () => {
               component="h1"
               variant="h5"
             >
-              {occasion}{" "}
+              {savedList.occasion}{" "}
             </Typography>
             <Typography mt={1} color="#EBE8D8" variant="body2">
-              {date}{" "}
+              {savedList.date}{" "}
             </Typography>
           </Box>
           <Box mt={3}>
@@ -298,11 +315,11 @@ const MakeList: React.FunctionComponent = () => {
                                   }}
                                   noWrap
                                   sx={{
-                                    cursor: "pointer",
                                     fontSize: "14px",
                                     overflow: "hidden",
                                     textOverflow: "ellipsis",
                                     width: "17ch",
+                                    cursor: "pointer",
                                   }}
                                 >
                                   {item.title}
@@ -505,7 +522,14 @@ const MakeList: React.FunctionComponent = () => {
                           <Grid key={index} item xs={6} md={3}>
                             <Box>
                               <img
-                                style={{ width: "129px", height: "153px" }}
+                                onClick={() => {
+                                  handleProductLink(item.storeLink);
+                                }}
+                                style={{
+                                  width: "129px",
+                                  height: "153px",
+                                  cursor: "pointer",
+                                }}
                                 alt=""
                                 src={
                                   "https://localhost:7216/Assets/" + item.image
@@ -513,8 +537,12 @@ const MakeList: React.FunctionComponent = () => {
                               ></img>
 
                               <Typography
+                                onClick={() => {
+                                  handleProductLink(item.storeLink);
+                                }}
                                 noWrap
                                 sx={{
+                                  cursor: "pointer",
                                   fontSize: "14px",
                                   overflow: "hidden",
                                   textOverflow: "ellipsis",
@@ -796,4 +824,4 @@ const MakeList: React.FunctionComponent = () => {
   );
 };
 
-export default MakeList;
+export default AList;

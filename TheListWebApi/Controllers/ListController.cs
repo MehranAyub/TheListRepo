@@ -1,7 +1,9 @@
 ﻿using Core.Application;
+using Core.Data.Dtos;
 using Core.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace TheListWebApi.Controllers
 {
@@ -22,11 +24,22 @@ namespace TheListWebApi.Controllers
             return repository.List.GetMyLists(userId);
         }
 
-        [HttpGet("{id}", Name = "GetListById")]
-        public Task<Product> GetProductById(Guid id)
+        [HttpGet( Name = "GetListById")]
+        public PayloadCustom<List> GetListById(Guid listId)
         {
-            return repository.Product.GetProductById(id);
+            try
+            {
+                var list = repository.List.GetListById(listId);
+                return new PayloadCustom<List>() { Entity = list, Status = 0 };
+            }
+            catch
+            {
+                return new PayloadCustom<List>() { Entity = null, Status = 500 };
+            }
         }
+
+       
+
 
         // POST api/<UsersController>
         [HttpPost]
@@ -58,6 +71,21 @@ namespace TheListWebApi.Controllers
 
             }
 
+        }
+        [HttpPost]
+        public PayloadCustom<List> BuyItems(BuyItemsDto dto)
+        {
+            try
+            {
+                var list = repository.List.BuyItems(dto);
+                repository.Save();
+
+                return new PayloadCustom<List>() { Entity = list, Status = 0 };
+            }
+            catch
+            {
+                return new PayloadCustom<List>() { Entity = null, Status = 500 };
+            }
         }
 
         [HttpPut("{id}")]
