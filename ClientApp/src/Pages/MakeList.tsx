@@ -612,6 +612,7 @@ const MakeList: React.FunctionComponent = () => {
         >
           <DialogTitle
             sx={{
+              pt: 3,
               textAlign: "left",
               fontFamily: "Lulo-Clean-One-Bold",
               fontSize: "16px",
@@ -670,6 +671,7 @@ const MakeList: React.FunctionComponent = () => {
             <Box
               mt={3}
               sx={{
+                pb: 1,
                 display: "flex",
                 direction: "row",
                 backgroundColor: "#EBE8D8",

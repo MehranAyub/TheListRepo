@@ -115,9 +115,9 @@ const SharedList: React.FunctionComponent = () => {
 
   return (
     <>
-      <Container
+      <Box
+        width="xl"
         component="div"
-        maxWidth="xl"
         sx={{ backgroundColor: "#EBE8D8", minHeight: "100vh" }}
       >
         <PageLoader isLoading={Loading || adding}></PageLoader>
@@ -156,7 +156,14 @@ const SharedList: React.FunctionComponent = () => {
             </Typography>
           </Box>
           <Box mt={3}>
-            <Box sx={{ ml: { xs: 0, md: 10 }, mt: 3, p: 0 }} height="auto">
+            <Box
+              sx={{
+                ml: { xs: 0, md: 20 },
+                mt: 3,
+                p: 0,
+              }}
+              height="auto"
+            >
               <Paper
                 sx={{
                   boxShadow: "none",
@@ -167,6 +174,7 @@ const SharedList: React.FunctionComponent = () => {
                 <List
                   sx={{
                     maxHeight: 500,
+
                     backgroundColor: "#EBE8D8",
                   }}
                 >
@@ -174,12 +182,11 @@ const SharedList: React.FunctionComponent = () => {
                     <Grid
                       container
                       direction="row"
-                      justifyContent="flex-start"
-                      alignItems="flex-start"
+                      justifyContent="left"
                       textAlign="left"
                       color="black"
                       spacing={2}
-                      pl={2}
+                      pl="10%"
                     >
                       {myList.map((item: any, index: number) => (
                         <Grid key={index} item xs={6} md={3}>
@@ -305,45 +312,45 @@ const SharedList: React.FunctionComponent = () => {
                   />
                 </React.Fragment>
               ))}
-              <Box
-                maxWidth="lg"
-                mt={7}
-                sx={{
-                  justifyContent: "center",
-                  bottom: 0,
-                }}
-              >
-                <Typography textAlign="center" fontSize="12px" color="black">
-                  Did you purchase the items that you checked?{" "}
-                </Typography>
-                <Typography
-                  sx={{ display: errorMessage ? "block" : "none" }}
-                  textAlign="center"
-                  fontSize="12px"
-                  color="red"
-                >
-                  Please check Items to buy..
-                </Typography>
-                <Button
-                  sx={{
-                    mt: 2,
-                    mb: 2,
-                    maxWidth: "270px",
-                    fontSize: "12px",
-                    backgroundColor: "none",
-                    color: "#EC6B40",
-                    fontFamily: "Lulo-Clean-One-Bold",
-                    textAlign: "center",
-                    border: "2px solid #EC6B40",
-                    borderRadius: 0,
-                    width: "100%",
-                  }}
-                  onClick={handleSave}
-                >
-                  I purchased the items
-                </Button>
-              </Box>
             </Box>
+          </Box>
+          <Box
+            mt={7}
+            sx={{
+              justifyContent: "center",
+              bottom: 0,
+              textAlign: "center",
+            }}
+          >
+            <Typography textAlign="center" fontSize="12px" color="black">
+              Did you purchase the items that you checked?{" "}
+            </Typography>
+            <Typography
+              sx={{ display: errorMessage ? "block" : "none" }}
+              textAlign="center"
+              fontSize="12px"
+              color="red"
+            >
+              Please check Items to buy..
+            </Typography>
+            <Button
+              sx={{
+                mt: 2,
+                mb: 2,
+                maxWidth: "270px",
+                fontSize: "12px",
+                backgroundColor: "none",
+                color: "#EC6B40",
+                fontFamily: "Lulo-Clean-One-Bold",
+                textAlign: "center",
+                border: "2px solid #EC6B40",
+                borderRadius: 0,
+                width: "100%",
+              }}
+              onClick={handleSave}
+            >
+              I purchased the items
+            </Button>
           </Box>
         </Box>
         <Dialog
@@ -382,7 +389,7 @@ const SharedList: React.FunctionComponent = () => {
             </Button>
           </DialogContent>
         </Dialog>
-      </Container>
+      </Box>
     </>
   );
 };

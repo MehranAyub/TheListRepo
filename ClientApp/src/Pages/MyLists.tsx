@@ -13,6 +13,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import ListApi from "./../services/Api/List.Api";
+import Footer from "../components/Footer";
 const MyLists: React.FunctionComponent = () => {
   let navigate = useNavigate();
   var user = null as any;
@@ -43,80 +44,89 @@ const MyLists: React.FunctionComponent = () => {
     navigate(`/AList/${id}`);
   };
   return (
-    <Container component="div" maxWidth="xs" style={{ height: "100vh" }}>
-      <Box
-        mt={12}
-        style={{
-          height: "100%",
-          textAlign: "center",
-        }}
-      >
-        <Typography
-          fontSize="28px"
-          fontFamily="Lulo-Clean-One-Bold"
-          color="#EC6B40"
-          component="h1"
-          variant="h5"
+    <>
+      <Container component="div" maxWidth="xs" style={{ height: "100vh" }}>
+        <Box
+          mt={12}
+          style={{
+            height: "100%",
+            textAlign: "center",
+          }}
         >
-          My Lists
-        </Typography>
-        <Box mt={7} height="58vh">
-          <Paper
-            sx={{
-              overflow: "auto",
-              backgroundColor: "black",
-            }}
+          <Typography
+            fontSize="28px"
+            fontFamily="Lulo-Clean-One-Bold"
+            color="#EC6B40"
+            component="h1"
+            variant="h5"
           >
-            <List
+            My Lists
+          </Typography>
+          <Box mt={7} height="58vh">
+            <Paper
               sx={{
-                maxHeight: 400,
+                overflow: "auto",
                 backgroundColor: "black",
               }}
             >
-              {myLists.map((item: any, index: number) => (
+              <List
+                sx={{
+                  maxHeight: 400,
+                  backgroundColor: "black",
+                }}
+              >
+                {myLists.map((item: any, index: number) => (
+                  <Typography
+                    key={index}
+                    fontSize="16px"
+                    fontFamily="Lulo-Clean-One-Bold"
+                    color="#EBE8D8"
+                    mb={5.5}
+                    onClick={() => getList(item.id)}
+                    sx={{
+                      cursor: "pointer",
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
+                ))}
+
                 <Typography
-                  key={index}
-                  fontSize="16px"
+                  display={myLists.length > 0 ? "none" : "block"}
+                  mt="50%"
+                  fontSize="8px"
                   fontFamily="Lulo-Clean-One-Bold"
                   color="#EBE8D8"
-                  mb={5.5}
-                  onClick={() => getList(item.id)}
                 >
-                  {item.title}
+                  You have not made any lists yet.
                 </Typography>
-              ))}
-
-              <Typography
-                display={myLists.length > 0 ? "none" : "block"}
-                mt="50%"
-                fontSize="8px"
-                fontFamily="Lulo-Clean-One-Bold"
-                color="#EBE8D8"
-              >
-                You have not made any lists yet.
-              </Typography>
-            </List>
-          </Paper>
+              </List>
+            </Paper>
+          </Box>
+          <Box mt={2} sx={{ display: "flex", justifyContent: "center" }}>
+            <Button
+              sx={{
+                maxWidth: "220px",
+                fontSize: "12px",
+                backgroundColor: "none",
+                color: "#EC6B40",
+                fontFamily: "Lulo-Clean-One-Bold",
+                textAlign: "center",
+                border: "2px solid #EC6B40",
+                borderRadius: 0,
+                width: "100%",
+              }}
+              onClick={() => {
+                navigate("/StartList");
+              }}
+            >
+              start a new List
+            </Button>
+          </Box>
         </Box>
-        <Box mt={2} sx={{ display: "flex", justifyContent: "center" }}>
-          <Button
-            sx={{
-              maxWidth: "220px",
-              fontSize: "12px",
-              backgroundColor: "none",
-              color: "#EC6B40",
-              fontFamily: "Lulo-Clean-One-Bold",
-              textAlign: "center",
-              border: "2px solid #EC6B40",
-              borderRadius: 0,
-              width: "100%",
-            }}
-          >
-            start a new List
-          </Button>
-        </Box>
-      </Box>
-    </Container>
+      </Container>
+      <Footer />
+    </>
   );
 };
 

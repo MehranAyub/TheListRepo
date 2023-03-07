@@ -289,7 +289,7 @@ const AList: React.FunctionComponent = () => {
                           textAlign="left"
                           color="#EBE8D8"
                           spacing={2}
-                          pl={2}
+                          pl="6%"
                         >
                           {myList.map((item: any, index: number) => (
                             <Grid key={index} item xs={6} md={3}>
@@ -495,7 +495,7 @@ const AList: React.FunctionComponent = () => {
                     FEATURED Items{" "}
                   </Typography>
                 </Box>
-                <Box sx={{ ml: { xs: 0, md: 10 }, mt: 3 }} height="58vh">
+                <Box sx={{ ml: { xs: 0, md: 2 }, mt: 3 }} height="58vh">
                   <Paper
                     sx={{
                       overflow: "auto",
@@ -516,7 +516,7 @@ const AList: React.FunctionComponent = () => {
                         textAlign="left"
                         color="#EBE8D8"
                         spacing={2}
-                        pl={2}
+                        pl="6%"
                       >
                         {products.map((item: any, index: number) => (
                           <Grid key={index} item xs={6} md={3}>
@@ -640,6 +640,7 @@ const AList: React.FunctionComponent = () => {
         >
           <DialogTitle
             sx={{
+              pt: 3,
               textAlign: "left",
               fontFamily: "Lulo-Clean-One-Bold",
               fontSize: "16px",
@@ -698,6 +699,7 @@ const AList: React.FunctionComponent = () => {
             <Box
               mt={3}
               sx={{
+                pb: 1,
                 display: "flex",
                 direction: "row",
                 backgroundColor: "#EBE8D8",

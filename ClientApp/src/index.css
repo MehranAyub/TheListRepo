@@ -16,3 +16,11 @@ code {
   font-family: "Lulo-Clean-One-Bold";
   src: url("./Assets/fonts/Lulo-Clean-One-Bold.ttf") format("truetype");
 }
+@font-face {
+  font-family: "Lulo-Clean-One";
+  src: url("./Assets/fonts/Lulo-Clean-One.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Open-Sauce-One";
+  src: url("./Assets/fonts/OpenSauceOne.ttf") format("truetype");
+}

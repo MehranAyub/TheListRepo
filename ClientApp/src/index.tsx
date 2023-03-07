@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import "./Assets/fonts/Lulo-Clean-One-Bold.ttf";
+import "./Assets/fonts/Lulo-Clean-One.ttf";
+import "./Assets/fonts/OpenSauceOne.ttf";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(

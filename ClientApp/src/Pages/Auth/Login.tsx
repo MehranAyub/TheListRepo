@@ -11,6 +11,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import UserApi from "../../services/Api/User.Api";
+import Footer from "../../components/Footer";
 
 const Login: React.FunctionComponent = () => {
   const {
@@ -54,99 +55,108 @@ const Login: React.FunctionComponent = () => {
     }
   }, [data]);
   return (
-    <Container component="div" maxWidth="xs" style={{ height: "100vh" }}>
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        style={{
-          height: "100%",
-          textAlign: "center",
-        }}
-      >
-        <Grid item maxWidth="xs">
-          <Box component="div" mt={2}>
-            <Typography
-              fontSize="28px"
-              fontFamily="Lulo-Clean-One-Bold"
-              color="#EC6B40"
-              component="h1"
-              variant="h5"
-            >
-              SIGN IN
-            </Typography>
-          </Box>
+    <>
+      <Container component="div" maxWidth="xs" style={{ height: "100vh" }}>
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          style={{
+            height: "100%",
+            textAlign: "center",
+          }}
+        >
+          <Grid item maxWidth="xs">
+            <Box component="div" mt={2}>
+              <Typography
+                fontSize="28px"
+                fontFamily="Lulo-Clean-One-Bold"
+                color="#EC6B40"
+                component="h1"
+                variant="h5"
+              >
+                SIGN IN
+              </Typography>
+            </Box>
 
-          <TextField
-            fullWidth
-            sx={{
-              "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
-              "& .MuiOutlinedInput-root": {
-                "& > fieldset": { borderColor: "#EBE8D8", borderRadius: "0px" },
-              },
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": {
-                  borderColor: "#EBE8D8",
-                },
-              },
-              input: { color: "#EBE8D8" },
-              mt: "20px",
-            }}
-            inputProps={{
-              autoComplete: "off",
-            }}
-            name="email"
-            onChange={handleListData}
-            value={userData.email}
-            label="Email"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            sx={{
-              "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
-              "& .MuiOutlinedInput-root": {
-                "& > fieldset": { borderColor: "#EBE8D8", borderRadius: "0px" },
-              },
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": {
-                  borderColor: "#EBE8D8",
-                },
-              },
-              input: { color: "#EBE8D8" },
-              mt: "20px",
-            }}
-            inputProps={{
-              autoComplete: "off",
-            }}
-            type="password"
-            name="password"
-            onChange={handleListData}
-            value={userData.password}
-            label="Password"
-            variant="outlined"
-          />
-
-          <Box mt={2} sx={{ display: "flex", justifyContent: "right" }}>
-            <Button
-              disabled={isFetching}
+            <TextField
+              fullWidth
               sx={{
-                color: "#EC6B40",
-                fontSize: "16px",
-                fontFamily: "Lulo-Clean-One-Bold",
+                "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
+                "& .MuiOutlinedInput-root": {
+                  "& > fieldset": {
+                    borderColor: "#EBE8D8",
+                    borderRadius: "0px",
+                  },
+                },
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": {
+                    borderColor: "#EBE8D8",
+                  },
+                },
+                input: { color: "#EBE8D8" },
+                mt: "20px",
               }}
-              onClick={() => {
-                handleContinue();
+              inputProps={{
+                autoComplete: "off",
               }}
-            >
-              Go <ArrowForwardIcon />
-            </Button>
-          </Box>
+              name="email"
+              onChange={handleListData}
+              value={userData.email}
+              label="Email"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              sx={{
+                "& .MuiInputLabel-root": { color: "#EBE8D8" }, //styles the label
+                "& .MuiOutlinedInput-root": {
+                  "& > fieldset": {
+                    borderColor: "#EBE8D8",
+                    borderRadius: "0px",
+                  },
+                },
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": {
+                    borderColor: "#EBE8D8",
+                  },
+                },
+                input: { color: "#EBE8D8" },
+                mt: "20px",
+              }}
+              inputProps={{
+                autoComplete: "off",
+              }}
+              type="password"
+              name="password"
+              onChange={handleListData}
+              value={userData.password}
+              label="Password"
+              variant="outlined"
+            />
+
+            <Box mt={2} sx={{ display: "flex", justifyContent: "right" }}>
+              <Button
+                disabled={isFetching}
+                sx={{
+                  color: "#EC6B40",
+                  fontSize: "16px",
+                  fontFamily: "Lulo-Clean-One-Bold",
+                }}
+                onClick={() => {
+                  handleContinue();
+                }}
+              >
+                Go <ArrowForwardIcon />
+              </Button>
+            </Box>
+          </Grid>
+          <p style={{ color: "red" }}>{errorMessage}</p>
         </Grid>
-        <p style={{ color: "red" }}>{errorMessage}</p>
-      </Grid>
-    </Container>
+      </Container>
+      <Footer />
+    </>
   );
 };
 
