@@ -24,7 +24,7 @@ const StartList: React.FunctionComponent = () => {
   let navigate = useNavigate();
   const [errorMessage, setErrorMessage] = React.useState(false);
   const [year, setYear] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
-  const [date, setDate] = React.useState<any>();
+  const [date, setDate] = React.useState<any>("April 7, 2022");
   const [listData, setListData] = React.useState<any>({
     occasion: "",
     title: "",

@@ -70,6 +70,9 @@ export default function Navbar() {
           color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
         }}
+        onClick={() => {
+          NavTo("/Inspiration");
+        }}
       >
         INSPIRATION
       </Button>
@@ -78,6 +81,9 @@ export default function Navbar() {
           fontSize: "20px",
           color: "white",
           fontFamily: "Lulo-Clean-One-Bold",
+        }}
+        onClick={() => {
+          NavTo("/About");
         }}
       >
         ABOUT
@@ -207,7 +213,7 @@ export default function Navbar() {
                   fontFamily: "Lulo-Clean-One-Bold",
                 }}
                 onClick={() => {
-                  NavTo("/");
+                  NavTo("/Inspiration");
                 }}
               >
                 INSPIRATION
@@ -219,7 +225,7 @@ export default function Navbar() {
                   fontFamily: "Lulo-Clean-One-Bold",
                 }}
                 onClick={() => {
-                  NavTo("/");
+                  NavTo("/About");
                 }}
               >
                 ABOUT

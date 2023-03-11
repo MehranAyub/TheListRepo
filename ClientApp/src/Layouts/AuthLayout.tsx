@@ -13,6 +13,8 @@ import Login from "./../Pages/Auth/Login";
 import SharedList from "./../Pages/SharedList";
 import Footer from "../components/Footer";
 import Inspiration from "../Pages/Inspiration";
+import Discover from "./../Pages/Discover";
+import About from "../Pages/About";
 
 function AuthLayout() {
   return (
@@ -23,6 +25,9 @@ function AuthLayout() {
         <Route path={"/Home"} element={<Home />}></Route>
         <Route path={"/StartList"} element={<StartList />}></Route>
         <Route path={"/Inspiration"} element={<Inspiration />}></Route>
+        <Route path={"/Discover"} element={<Discover />}></Route>
+        <Route path={"/About"} element={<About />}></Route>
+
         <Route
           path={"/MakeList/:occasion/:title/:date/:note"}
           element={<MakeList />}

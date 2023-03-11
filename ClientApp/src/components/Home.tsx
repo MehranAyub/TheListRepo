@@ -424,7 +424,7 @@ function Home() {
                     fontFamily: "Lulo-Clean-One-Bold",
                   }}
                   onClick={() => {
-                    //  handleContinue();
+                    navigate("/Inspiration");
                   }}
                 >
                   SEE MORE <ArrowForwardIcon />

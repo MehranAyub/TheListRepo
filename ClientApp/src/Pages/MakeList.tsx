@@ -272,7 +272,7 @@ const MakeList: React.FunctionComponent = () => {
                           textAlign="left"
                           color="#EBE8D8"
                           spacing={2}
-                          pl={2}
+                          pl="6%"
                         >
                           {myList.map((item: any, index: number) => (
                             <Grid key={index} item xs={6} md={3}>
@@ -499,7 +499,7 @@ const MakeList: React.FunctionComponent = () => {
                         textAlign="left"
                         color="#EBE8D8"
                         spacing={2}
-                        pl={2}
+                        pl="6%"
                       >
                         {products.map((item: any, index: number) => (
                           <Grid key={index} item xs={6} md={3}>

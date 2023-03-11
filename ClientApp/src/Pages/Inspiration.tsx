@@ -10,14 +10,14 @@ const Inspiration: React.FunctionComponent = () => {
       component="div"
       maxWidth="xl"
       sx={{
-        height: "100vh",
+        height: "105vh",
         backgroundColor: "#EBE8D8",
         display: "flex",
         justifyContent: "center",
       }}
     >
       <Box
-        pt={12}
+        mt={12}
         sx={{
           textAlign: "center",
         }}
@@ -83,9 +83,6 @@ const Inspiration: React.FunctionComponent = () => {
                 borderRadius: 0,
                 width: "100%",
               }}
-              onClick={() => {
-                navigate("/StartList");
-              }}
             >
               Discover{" "}
             </Button>
@@ -95,7 +92,8 @@ const Inspiration: React.FunctionComponent = () => {
                 left: "-1%",
                 maxWidth: "216px",
                 fontSize: "14px",
-                "& .MuiButton-root": { backgroundColor: "black" },
+                "&:hover": { backgroundColor: "black" },
+
                 backgroundColor: "black",
                 color: "#EBE8D8",
                 fontFamily: "Lulo-Clean-One-Bold",
@@ -104,7 +102,7 @@ const Inspiration: React.FunctionComponent = () => {
                 width: "100%",
               }}
               onClick={() => {
-                navigate("/StartList");
+                navigate("/Discover");
               }}
             >
               Discover{" "}
