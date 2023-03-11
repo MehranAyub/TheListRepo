@@ -1,10 +1,7 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import Logo from "../Assets/Logo.png";
-import insp1 from "../Assets/insp1.png";
-import insp2 from "../Assets/insp2.png";
-import insp3 from "../Assets/insp3.png";
-import insp4 from "../Assets/insp4.png";
+import inspSeason from "../Assets/InspSeason.png";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import "../App.css";
@@ -339,7 +336,7 @@ function Home() {
           <Grid mt={5} pb={15} container display="flex" width="auto">
             <Grid item xs={6} md={3} maxWidth="202px">
               <Box sx={{ direction: "column", maxWidth: "202px" }}>
-                <img src={insp1}></img>
+                <img style={{ width: "202px" }} src={inspSeason}></img>
                 <Typography
                   sx={{
                     fontFamily: "Lulo-Clean-One",
@@ -349,66 +346,17 @@ function Home() {
                     fontSize: "12px",
                     textAlign: "start",
                     lineHeight: "14.64px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    navigate("/Inspiration");
                   }}
                 >
-                  Top 10 essentials you need to put on your baby shower registry{" "}
+                  Pisces Season
                 </Typography>
               </Box>
             </Grid>
-            <Grid item xs={6} md={3} maxWidth="202px">
-              <Box sx={{ direction: "column", maxWidth: "202px" }}>
-                <img src={insp2}></img>
-                <Typography
-                  sx={{
-                    fontFamily: "Lulo-Clean-One",
-                    mt: "2px",
-                    color: "#EBE8D8",
-                    letterSpacing: "-0.1em",
-                    fontSize: "12px",
-                    textAlign: "start",
-                    lineHeight: "14.64px",
-                  }}
-                >
-                  Things you need to have in your new home as newlyweds{" "}
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={3} maxWidth="202px">
-              <Box sx={{ direction: "column", maxWidth: "202px" }}>
-                <img src={insp3}></img>
-                <Typography
-                  sx={{
-                    fontFamily: "Lulo-Clean-One",
-                    mt: "2px",
-                    color: "#EBE8D8",
-                    letterSpacing: "-0.1em",
-                    fontSize: "12px",
-                    textAlign: "start",
-                    lineHeight: "14.64px",
-                  }}
-                >
-                  Are you graduating soon? You need to get this special gifts{" "}
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={3} maxWidth="202px">
-              <Box sx={{ direction: "column", maxWidth: "202px" }}>
-                <img src={insp4}></img>
-                <Typography
-                  sx={{
-                    fontFamily: "Lulo-Clean-One",
-                    mt: "2px",
-                    color: "#EBE8D8",
-                    fontSize: "12px",
-                    letterSpacing: "-0.1em",
-                    textAlign: "start",
-                    lineHeight: "14.64px",
-                  }}
-                >
-                  Birthday gifts for each age group{" "}
-                </Typography>
-              </Box>
-            </Grid>
+
             <Grid
               mr="10%"
               item

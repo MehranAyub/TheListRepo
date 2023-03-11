@@ -6,101 +6,6 @@ import Insp from "../Assets/InspSeason.png";
 const Discover: React.FunctionComponent = () => {
   let navigate = useNavigate();
   return (
-    // <Box
-    //   maxWidth="sm"
-    //   sx={{
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     alignContent: "center",
-    //     textAlign: "center",
-    //     height: "105vh",
-    //     backgroundColor: "#EBE8D8",
-    //   }}
-    // >
-    //   <Grid
-    //     maxWidth="xs"
-    //     display="flex"
-    //     justifyContent="center"
-    //     alignItems="center"
-    //     style={{
-    //       height: "100%",
-    //       textAlign: "center",
-    //     }}
-    //   >
-    //     <Grid item pt={12} maxWidth="sm">
-    //       <Box component="div">
-    //         <Typography
-    //           fontSize="20px"
-    //           fontFamily="Lulo-Clean-One-Bold"
-    //           color="black"
-    //           component="h1"
-    //           variant="h5"
-    //         >
-    //           Pisces season{" "}
-    //         </Typography>
-    //       </Box>
-    //       <Box component="div">
-    //         <Typography
-    //           fontSize="12px"
-    //           fontWeight={400}
-    //           lineHeight="122%"
-    //           color="black"
-    //           textAlign="center"
-    //           p={1.5}
-    //         >
-    //           Pisces season is upon us! If you have an important Pisces in your
-    //           life, you might be wondering what to give them for their birthday.
-    //           After all, Pisces is known for its dreamy and elusive nature,
-    //           which can make gift-giving a bit of a challenge. But fear not, for
-    //           we have some quirky and unconventional gift ideas that are sure to
-    //           delight any little fishy out there.
-    //         </Typography>
-    //       </Box>
-    //       <Box
-    //         mt={7}
-    //         sx={{
-    //           maxWidth: "358px",
-    //           textAlign: "center",
-    //           alignItems: "center",
-    //         }}
-    //       >
-    //         <img src={Insp}></img>
-    //       </Box>
-    //       <Box component="div">
-    //         <Typography
-    //           fontSize="12px"
-    //           fontWeight={400}
-    //           lineHeight="122%"
-    //           color="black"
-    //           textAlign="center"
-    //           p={1.5}
-    //         >
-    //           A book about themselves - kinda: Pisces are deeply intuitive and
-    //           spiritual and love to indulge in self-care, so a book to give them
-    //           a greater understanding of their own nature could be the perfect
-    //           gift. Encourage them to explore their intuition and connect with
-    //           their inner selves through understanding their zodiac sign. A
-    //           mixer: A true Pisces treats their body like a temple, so help them
-    //           make it a smooth and easy habit with their preferred
-    //           eat-your-greens morning routine and encourage them to take some
-    //           time to pamper themselves. A bouquet: Pisces are known for their
-    //           love of flowers, nature, and beauty - so a gorgeous bouquet could
-    //           put you on their fav list - but choose wisely; they are one picky
-    //           person when it comes to their flower bunts - if you're in it to
-    //           win it, we suggest a weekly flower subscription. A personalized
-    //           playlist: Why not create a personalized playlist for them? Include
-    //           songs that reflect their personality and taste. A dreamy trip or a
-    //           dreamy read: Their dreamer personality takes them all kinda
-    //           places, so if you want to splurge, we recommend a
-    //           get-away-anywhere or the next best option - a dreamy book for
-    //           their mind to wander. If none of the above sounds appealing and
-    //           you are still hesitant, might we suggest this: Ask them what they
-    //           want, and give it to them. Success guaranteed. Swim good!
-    //         </Typography>
-    //       </Box>
-    //     </Grid>
-    //   </Grid>
-    // </Box>
     <Box sx={{ height: "auto", backgroundColor: "#EBE8D8" }}>
       <Container component="div" maxWidth="sm">
         <Grid
@@ -154,7 +59,7 @@ const Discover: React.FunctionComponent = () => {
                 maxWidth: "636px",
               }}
             >
-              <img src={Insp}></img>
+              <img style={{ width: "100%" }} src={Insp}></img>
             </Box>
             <Box component="div">
               <Typography

@@ -35,6 +35,9 @@ export default function Navbar() {
   const NavTo = (link: any) => {
     navigate(link);
   };
+  const Redirect = (url: string) => {
+    window.open(url, "_blank");
+  };
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ ml: 4, mt: 6, textAlign: "start" }}>
       <Divider />
@@ -108,22 +111,21 @@ export default function Navbar() {
         START A LIST
       </Button>
       <Box sx={{ position: "absolute", bottom: 30 }}>
-        <Box
-          mt={3}
-          sx={{
-            display: "flex",
-            direction: "row",
-            justifyContent: "flex-start",
+        <IconButton
+          sx={{ mt: 3 }}
+          onClick={() => {
+            Redirect("https://www.instagram.com/alistforall/");
           }}
         >
-          <IconButton>
-            <img src={Insta} />
-          </IconButton>
-          <IconButton>
-            <img src={linkedIn} />
-          </IconButton>
-        </Box>
-        <Typography sx={{ fontSize: "14px", color: "#EBE8D8", mt: 2 }}>
+          <img src={Insta} />
+        </IconButton>
+
+        <Typography
+          onClick={() => {
+            Redirect("https://mailchimp.com/legal/");
+          }}
+          sx={{ fontSize: "14px", color: "#EBE8D8", mt: 2 }}
+        >
           Privacy Policy
         </Typography>
         <Typography sx={{ fontSize: "14px", color: "#EBE8D8", mt: 1 }}>
