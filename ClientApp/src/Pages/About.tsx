@@ -36,7 +36,7 @@ function About() {
         >
           <Typography
             textAlign="center"
-            fontSize="19px"
+            fontSize="16px"
             fontFamily="Baskerville"
             zIndex={1}
             color="black"
@@ -313,6 +313,7 @@ function About() {
             sx={{
               textAlign: "left",
               width: "324px",
+              mt: 1,
             }}
           >
             <img src={Vector1}></img>
