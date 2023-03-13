@@ -15,6 +15,7 @@ import Footer from "../components/Footer";
 import Inspiration from "../Pages/Inspiration";
 import Discover from "./../Pages/Discover";
 import About from "../Pages/About";
+import SignUp from "../Pages/Auth/SignUp";
 
 function AuthLayout() {
   return (
@@ -27,6 +28,7 @@ function AuthLayout() {
         <Route path={"/Inspiration"} element={<Inspiration />}></Route>
         <Route path={"/Discover"} element={<Discover />}></Route>
         <Route path={"/About"} element={<About />}></Route>
+        <Route path="*" element={<Login />} />
 
         <Route
           path={"/MakeList/:occasion/:title/:date/:note"}
@@ -35,6 +37,7 @@ function AuthLayout() {
         <Route path={"/AList/:id"} element={<AList />}></Route>
         <Route path={"/MyLists"} element={<MyLists />}></Route>
         <Route path={"/Login"} element={<Login />}></Route>
+        <Route path={"/Register"} element={<SignUp />}></Route>
         <Route path={"/SharedList/:id"} element={<SharedList />}></Route>
       </Routes>
     </Box>

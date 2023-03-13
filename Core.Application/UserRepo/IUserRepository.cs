@@ -13,6 +13,6 @@ namespace Core.Application.UserRepo
         Task<User> GetUserById(Guid id);
         User ValidateUser(string email,string password);
 
-        void CreateUser(User user);
+        bool CreateUser(User user);
     }
 }

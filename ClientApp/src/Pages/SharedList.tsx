@@ -132,7 +132,7 @@ const SharedList: React.FunctionComponent = () => {
             <Typography
               fontSize="28px"
               fontFamily="Lulo-Clean-One-Bold"
-              color="#EC6B40"
+              color="black"
               component="h1"
               variant="h5"
             >

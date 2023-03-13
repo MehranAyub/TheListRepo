@@ -25,6 +25,7 @@ import { Typography } from "@mui/material";
 const drawerWidth = 300;
 
 export default function Navbar() {
+  var user = localStorage.getItem("token");
   let navigate = useNavigate();
   // const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -131,20 +132,36 @@ export default function Navbar() {
         <Typography sx={{ fontSize: "14px", color: "#EBE8D8", mt: 1 }}>
           contact@alistforall.com{" "}
         </Typography>
-        <Button
-          sx={{
-            mt: 4,
-            fontSize: "20px",
-            color: "white",
-            fontFamily: "Lulo-Clean-One-Bold",
-          }}
-          onClick={() => {
-            localStorage.clear();
-            window.location.href = "/";
-          }}
-        >
-          LOG OUT
-        </Button>
+        {!user ? (
+          <Button
+            sx={{
+              mt: 4,
+              fontSize: "20px",
+              color: "white",
+              fontFamily: "Lulo-Clean-One-Bold",
+            }}
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            LOG IN
+          </Button>
+        ) : (
+          <Button
+            sx={{
+              mt: 4,
+              fontSize: "20px",
+              color: "white",
+              fontFamily: "Lulo-Clean-One-Bold",
+            }}
+            onClick={() => {
+              localStorage.clear();
+              window.location.href = "/";
+            }}
+          >
+            LOG OUT
+          </Button>
+        )}
       </Box>
     </Box>
   );
@@ -232,19 +249,34 @@ export default function Navbar() {
               >
                 ABOUT
               </Button>
-              <Button
-                sx={{
-                  color: "#EC6B40",
-                  letterSpacing: "-0.205em",
-                  fontFamily: "Lulo-Clean-One-Bold",
-                }}
-                onClick={() => {
-                  localStorage.clear();
-                  window.location.href = "/";
-                }}
-              >
-                LOG OUT
-              </Button>
+              {!user ? (
+                <Button
+                  sx={{
+                    color: "#EC6B40",
+                    letterSpacing: "-0.205em",
+                    fontFamily: "Lulo-Clean-One-Bold",
+                  }}
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  LOG IN
+                </Button>
+              ) : (
+                <Button
+                  sx={{
+                    color: "#EC6B40",
+                    letterSpacing: "-0.205em",
+                    fontFamily: "Lulo-Clean-One-Bold",
+                  }}
+                  onClick={() => {
+                    localStorage.clear();
+                    window.location.href = "/";
+                  }}
+                >
+                  LOG OUT
+                </Button>
+              )}
             </Box>
           </Box>
         </Toolbar>

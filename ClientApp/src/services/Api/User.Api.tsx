@@ -10,7 +10,7 @@ class UserApi {
   }
   async createUser(body: any) {
     try {
-      const res = await axios.post("List/CreateList", body);
+      const res = await axios.post("Users/CreateUser", body);
       const { data } = res;
       if (res.status === 200) {
         return data;

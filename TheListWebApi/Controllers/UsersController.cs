@@ -19,13 +19,6 @@ namespace TheListWebApi.Controllers
             repository = repositorywrapper;
         }
 
-        [HttpGet(Name = "GetAllUsers")]
-        public IEnumerable<User> GetAllUsers()
-            {
-            return repository.User.GetAllUsers();
-        }
-
-        // GET api/<UsersController>/5
         [HttpGet("{id}",Name = "GetUserById")]
         public  Task<User> GetUserById(Guid id)
         {
@@ -48,20 +41,25 @@ namespace TheListWebApi.Controllers
             }
         }
 
-        // POST api/<UsersController>
-        [HttpPost("CreateUser")]
+        [HttpPost]
         public PayloadCustom<User> CreateUser([FromBody] User user)
         {
             try
             {
                 if (ModelState.IsValid)
-                {
-                    repository.User.CreateUser(user);
-                    repository.Save();
-                    return new PayloadCustom<User>() { Entity = user, Status = 0 };
+                {   
+                  bool result=  repository.User.CreateUser(user);
+                    if (result == true)
+                    {
+                        repository.Save();
+                        return new PayloadCustom<User>() { Entity = new User { Id = user.Id, FName = user.FName }, Status = 0 };
+
+                    }
+                    return new PayloadCustom<User>() { Entity = null, Status = 404 };
+
                 }
-              
-                    return new PayloadCustom<User>() { Entity = null, Status = 9 };
+
+                return new PayloadCustom<User>() { Entity = null, Status = 9 };
               
             }
             catch 
@@ -72,16 +70,5 @@ namespace TheListWebApi.Controllers
 
         }
 
-        // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

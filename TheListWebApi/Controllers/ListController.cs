@@ -38,10 +38,6 @@ namespace TheListWebApi.Controllers
             }
         }
 
-       
-
-
-        // POST api/<UsersController>
         [HttpPost]
         public PayloadCustom<List> CreateList([FromBody] List list)
         {
@@ -88,14 +84,5 @@ namespace TheListWebApi.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

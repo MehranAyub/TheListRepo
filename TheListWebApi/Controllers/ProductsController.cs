@@ -30,7 +30,6 @@ namespace TheListWebApi.Controllers
             return repository.Product.GetProductById(id);
         }
 
-        // POST api/<UsersController>
         [HttpPost("CreateProduct")]
         public PayloadCustom<Product> CreateProduct([FromBody] Product product)
         {
@@ -78,15 +77,6 @@ namespace TheListWebApi.Controllers
         }
 
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
 
     }
 }

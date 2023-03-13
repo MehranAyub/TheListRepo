@@ -30,11 +30,20 @@ namespace Core.Application.UserRepo
         }
         public User ValidateUser(string email, string password)
         {
-            return RepositoryContext.User.Where(n => n.Email == email && n.Password == n.Password).FirstOrDefault();
+            return RepositoryContext.User.Where(n => n.Email == email && n.Password == password).FirstOrDefault();
         }
-        public void CreateUser(User user)
-        {          
+        public bool CreateUser(User user)
+        {
+            var data= RepositoryContext.User.Where(n => n.Email == user.Email).FirstOrDefault();
+            if (data != null)
+            {
+                return false;
+            }
+            else
+            {
                 Create(user);
+                return true;
+            }
         }
     }
 }

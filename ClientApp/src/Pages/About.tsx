@@ -36,12 +36,12 @@ function About() {
         >
           <Typography
             textAlign="center"
-            fontSize="16px"
+            fontSize="20px"
             fontFamily="Baskerville"
             zIndex={1}
             color="black"
           >
-            On a mission to reinventing gifting as we know it.
+            Reinventing gifting as we know it.
           </Typography>
         </Box>
 
@@ -354,7 +354,7 @@ function About() {
               width: "324px",
             }}
           >
-            <img style={{ marginLeft: "7px" }} src={Vector2}></img>
+            <img style={{ marginRight: "7px" }} src={Vector2}></img>
             <img src={Vector2}></img>
           </Box>
         </Box>

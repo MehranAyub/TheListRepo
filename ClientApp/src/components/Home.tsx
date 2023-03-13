@@ -333,7 +333,7 @@ function Home() {
           >
             Featured blogs to help you find the best gifts
           </Typography>
-          <Grid mt={2} pb={15} container display="flex" width="auto">
+          <Grid mt={1} pb={15} container display="flex" width="auto">
             <Grid item xs={6} md={3} maxWidth="202px">
               <Box sx={{ direction: "column", maxWidth: "202px" }}>
                 <img style={{ width: "202px" }} src={inspSeason}></img>

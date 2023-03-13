@@ -153,6 +153,31 @@ const Login: React.FunctionComponent = () => {
             </Box>
           </Grid>
           <p style={{ color: "red" }}>{errorMessage}</p>
+          <Box component="div" mt={5}>
+            <Typography
+              fontSize="12px"
+              fontFamily="Lulo-Clean-One-Bold"
+              color="#EBE8D8"
+              component="h1"
+              variant="h5"
+            >
+              Don’t have an account?
+            </Typography>
+            <Typography
+              mt={1}
+              fontSize="12px"
+              fontFamily="Lulo-Clean-One-Bold"
+              color="#EC6B40"
+              component="h1"
+              variant="h5"
+              sx={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate(`/register`);
+              }}
+            >
+              Create an account
+            </Typography>
+          </Box>
         </Grid>
       </Container>
       <Footer />
