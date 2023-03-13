@@ -21,9 +21,9 @@ namespace Core.Application.ProductRepo
         {
             if (search == null)
             {
-              return  RepositoryContext.Product.Take(20).ToList();
+              return  RepositoryContext.Product.Take(30).ToList();
             }
-          return  RepositoryContext.Product.Take(20).Where(n => n.Title.ToLower().Contains(search.ToLower())).ToList();
+          return  RepositoryContext.Product.Take(30).Where(n => n.Title.ToLower().Contains(search.ToLower())).ToList();
           
         }
 
